@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/calendar/calendar",
+    "pages/collection/collection",
+    "pages/profile/profile",
+    "pages/publish/publish",
+    "pages/species/species"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#2E7D32",
+    "navigationBarTitleText": "物候志",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F9F0"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#2E7D32",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "观察"
+      },
+      {
+        "pagePath": "pages/calendar/calendar",
+        "text": "物候"
+      },
+      {
+        "pagePath": "pages/collection/collection",
+        "text": "图鉴"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于标记观察记录的地理位置，展示同城自然观察内容"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

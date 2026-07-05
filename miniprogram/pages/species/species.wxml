@@ -1,0 +1,34 @@
+<view class="container">
+  <!-- 物种头部 -->
+  <view class="header">
+    <image class="header-img" src="{{speciesInfo.image}}" mode="aspectFill" />
+    <view class="header-mask">
+      <view class="species-name">{{speciesInfo.name}}</view>
+      <view class="species-category">{{speciesInfo.categoryName}}</view>
+    </view>
+  </view>
+
+  <!-- 科普介绍 -->
+  <view class="section">
+    <view class="section-title">物种科普</view>
+    <view class="desc-text">{{speciesInfo.desc || '暂无详细科普资料，持续更新中...'}}</view>
+  </view>
+
+  <!-- 我的观察记录 -->
+  <view class="section">
+    <view class="section-title">我的观察记录 ({{recordList.length}}次)</view>
+    <view class="record-list">
+      <view class="record-item" wx:for="{{recordList}}" wx:key="_id">
+        <image class="record-img" src="{{item.coverImage}}" mode="aspectFill" />
+        <view class="record-info">
+          <view class="record-date">{{item.observeDate}}</view>
+          <view class="record-location">📍 {{item.location}}</view>
+          <view class="record-desc" wx:if="{{item.description}}">{{item.description}}</view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{recordList.length === 0}}" class="empty-tip">
+      你还没有观察过这个物种
+    </view>
+  </view>
+</view>

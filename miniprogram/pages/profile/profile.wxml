@@ -1,0 +1,70 @@
+<view class="container">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+      <image class="avatar" src="{{userInfo.avatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+    </button>
+    <view class="user-info">
+      <input class="nickname-input" type="nickname" placeholder="点击设置昵称" value="{{userInfo.nickname}}" bindblur="onNicknameInput" />
+      <view class="user-tip">自然观察爱好者</view>
+    </view>
+  </view>
+
+  <!-- 数据看板 -->
+  <view class="stats-section">
+    <view class="section-title">年度观察统计</view>
+    <view class="stats-grid">
+      <view class="stats-item">
+        <view class="stats-num">{{yearStats.total}}</view>
+        <view class="stats-label">总观察数</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-num">{{yearStats.species}}</view>
+        <view class="stats-label">物种数</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-num">{{yearStats.favCategory}}</view>
+        <view class="stats-label">最爱分类</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-num">{{yearStats.maxMonth}}月</view>
+        <view class="stats-label">观察最多</view>
+      </view>
+    </view>
+
+    <!-- 月度趋势柱状图 -->
+    <view class="chart-title">月度观察趋势</view>
+    <view class="chart-box">
+      <view class="chart-item" wx:for="{{monthData}}" wx:key="month">
+        <view class="chart-bar-wrap">
+          <view class="chart-bar" style="height: {{item.height}}"></view>
+        </view>
+        <view class="chart-label">{{item.month}}月</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="menu-section">
+    <view class="menu-item" bindtap="goToPage" data-page="collection">
+      <text class="menu-icon">📚</text>
+      <text class="menu-text">我的图鉴</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goToPage" data-page="calendar">
+      <text class="menu-icon">📅</text>
+      <text class="menu-text">物候打卡记录</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="showAbout">
+      <text class="menu-icon">ℹ️</text>
+      <text class="menu-text">关于</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="clearCache">
+      <text class="menu-icon">🗑️</text>
+      <text class="menu-text">清除缓存</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+</view>

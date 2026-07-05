@@ -1,0 +1,66 @@
+<view class="container">
+  <!-- 当前节气卡片 -->
+  <view class="term-card">
+    <view class="term-header">
+      <view class="term-name">{{currentTerm.name}}</view>
+      <view class="term-date">{{currentTerm.date}}</view>
+    </view>
+    <view class="term-desc">{{currentTerm.desc}}</view>
+    <view class="three-hou">
+      <view class="hou-title">节气三候</view>
+      <view class="hou-item" wx:for="{{currentTerm.threeHou}}" wx:key="index">
+        <text class="hou-dot">●</text>
+        <text>{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 月历区域 -->
+  <view class="calendar-section">
+    <view class="calendar-header">
+      <view class="switch-btn" bindtap="prevMonth">‹</view>
+      <view class="month-text">{{currentYear}}年{{currentMonth}}月</view>
+      <view class="switch-btn" bindtap="nextMonth">›</view>
+    </view>
+
+    <!-- 星期表头 -->
+    <view class="week-row">
+      <view class="week-item" wx:for="{{weekList}}" wx:key="index">{{item}}</view>
+    </view>
+
+    <!-- 日期网格 -->
+    <view class="day-grid">
+      <view 
+        wx:for="{{dayList}}" 
+        wx:key="index"
+        class="day-item {{item.isTerm ? 'term-day' : ''}} {{item.isToday ? 'today' : ''}} {{item.isCurrentMonth ? '' : 'other-month'}}"
+        bindtap="clickDay"
+        data-day="{{item}}"
+      >
+        <text class="day-num">{{item.day}}</text>
+        <text wx:if="{{item.termName}}" class="term-tag">{{item.termName}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 物候物种列表 -->
+  <view class="species-section">
+    <view class="section-title">本月物候物种</view>
+    <view class="species-list">
+      <view class="species-card" wx:for="{{currentSpecies}}" wx:key="id">
+        <image class="species-img" src="{{item.image}}" mode="aspectFill" />
+        <view class="species-info">
+          <view class="species-name">{{item.name}}</view>
+          <view class="species-desc">{{item.desc}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 打卡按钮 -->
+  <view class="check-section">
+    <button class="check-btn {{hasChecked ? 'checked' : ''}}" bindtap="checkIn" disabled="{{hasChecked}}">
+      {{hasChecked ? '今日已打卡' : '我也观察到了'}}
+    </button>
+  </view>
+</view>

@@ -1,0 +1,129 @@
+.container {
+  min-height: 100vh;
+  background-color: #F5F9F0;
+  padding-bottom: 120rpx;
+}
+
+/* 数据概览 */
+.stats-card {
+  display: flex;
+  background-color: #fff;
+  margin: 30rpx;
+  border-radius: 16rpx;
+  padding: 30rpx 0;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05);
+}
+.stats-item {
+  flex: 1;
+  text-align: center;
+  border-right: 1rpx solid #f0f0f0;
+}
+.stats-item:last-child {
+  border-right: none;
+}
+.stats-num {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #2E7D32;
+  margin-bottom: 8rpx;
+}
+.stats-label {
+  font-size: 24rpx;
+  color: #888;
+}
+
+/* 分类标签 */
+.tab-scroll {
+  white-space: nowrap;
+  background-color: #ffffff;
+  border-bottom: 1rpx solid #eee;
+  margin-bottom: 20rpx;
+}
+.tab-list {
+  display: inline-flex;
+  padding: 0 20rpx;
+}
+.tab-item {
+  padding: 24rpx 30rpx;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+}
+.tab-item.active {
+  color: #2E7D32;
+  font-weight: 600;
+}
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 6rpx;
+  background-color: #2E7D32;
+  border-radius: 3rpx;
+}
+
+/* 图鉴网格 */
+.collection-grid {
+  padding: 0 20rpx;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+.species-card {
+  position: relative;
+  background-color: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.species-card.undiscovered {
+  filter: grayscale(100%);
+  opacity: 0.6;
+}
+.species-img {
+  width: 100%;
+  height: 240rpx;
+  display: block;
+}
+.species-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 240rpx;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mask-text {
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+.species-info {
+  padding: 20rpx;
+}
+.species-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6rpx;
+}
+.species-count {
+  font-size: 22rpx;
+  color: #2E7D32;
+}
+
+/* 空状态 */
+.empty-box {
+  padding: 120rpx 0;
+  text-align: center;
+}
+.empty-text {
+  font-size: 28rpx;
+  color: #aaa;
+}

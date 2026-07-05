@@ -1,0 +1,23 @@
+/* app.wxss - 全局样式 */
+page {
+  background-color: #FAF9F5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  color: #333333;
+  font-size: 28rpx;
+}
+
+.container {
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+/* 主题绿色按钮 */
+.btn-primary {
+  background-color: #2E7D32;
+  color: #ffffff;
+  border-radius: 10rpx;
+  padding: 20rpx 40rpx;
+  text-align: center;
+  font-size: 30rpx;
+  box-shadow: 0 2rpx 6rpx rgba(46, 125, 50, 0.3);
+}

@@ -1,0 +1,60 @@
+<view class="container">
+  <!-- 图片上传区 -->
+  <view class="upload-section">
+    <view class="section-title">观察图片（最多9张）</view>
+    <view class="image-list">
+      <view class="image-item" wx:for="{{imageList}}" wx:key="index">
+        <image src="{{item}}" mode="aspectFill" class="upload-img" />
+        <view class="delete-btn" bindtap="deleteImage" data-index="{{index}}">×</view>
+      </view>
+      <view class="add-btn" wx:if="{{imageList.length < 9}}" bindtap="chooseImage">
+        <text class="add-icon">+</text>
+        <text class="add-text">添加图片</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 表单区域 -->
+  <view class="form-section">
+    <view class="form-item">
+      <view class="label">物种名称 <text class="required">*</text></view>
+      <input class="input" placeholder="请输入物种名称" value="{{formData.speciesName}}" bindinput="onInput" data-field="speciesName" />
+    </view>
+
+    <view class="form-item">
+      <view class="label">物种分类 <text class="required">*</text></view>
+      <picker range="{{categoryOptions}}" range-key="name" value="{{formData.categoryIndex}}" bindchange="onCategoryChange">
+        <view class="picker-text">
+          {{categoryOptions[formData.categoryIndex].name || '请选择分类'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <view class="label">观察地点</view>
+      <view class="location-row">
+        <input class="input location-input" placeholder="自动获取中..." value="{{formData.location}}" bindinput="onInput" data-field="location" />
+        <view class="location-btn" bindtap="getCurrentLocation">重新定位</view>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <view class="label">观察时间</view>
+      <picker mode="date" value="{{formData.observeDate}}" bindchange="onDateChange">
+        <view class="picker-text">{{formData.observeDate}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <view class="label">观察描述</view>
+      <textarea class="textarea" placeholder="记录一下观察到的细节吧..." value="{{formData.description}}" bindinput="onInput" data-field="description" maxlength="500" />
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section">
+    <button class="submit-btn" bindtap="submitPublish" disabled="{{submitting}}">
+      {{submitting ? '发布中...' : '发布观察'}}
+    </button>
+  </view>
+</view>

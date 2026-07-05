@@ -1,0 +1,63 @@
+<view class="container">
+  <!-- 数据概览 -->
+  <view class="stats-card">
+    <view class="stats-item">
+      <view class="stats-num">{{stats.speciesCount}}</view>
+      <view class="stats-label">物种数</view>
+    </view>
+    <view class="stats-item">
+      <view class="stats-num">{{stats.observeCount}}</view>
+      <view class="stats-label">观察次数</view>
+    </view>
+    <view class="stats-item">
+      <view class="stats-num">{{stats.continuousDays}}</view>
+      <view class="stats-label">连续天数</view>
+    </view>
+    <view class="stats-item">
+      <view class="stats-num">{{stats.achievementCount}}</view>
+      <view class="stats-label">成就数</view>
+    </view>
+  </view>
+
+  <!-- 分类标签 -->
+  <scroll-view class="tab-scroll" scroll-x="true" show-scrollbar="{{false}}">
+    <view class="tab-list">
+      <view 
+        wx:for="{{categoryList}}" 
+        wx:key="id"
+        class="tab-item {{currentCategory === item.id ? 'active' : ''}}"
+        bindtap="switchCategory"
+        data-id="{{item.id}}"
+      >
+        {{item.name}}
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 图鉴网格 -->
+  <view class="collection-grid">
+    <view 
+      wx:for="{{speciesList}}" 
+      wx:key="name"
+      class="species-card {{item.discovered ? '' : 'undiscovered'}}"
+      bindtap="goSpeciesDetail"
+      data-name="{{item.name}}"
+    >
+      <image class="species-img" src="{{item.image}}" mode="aspectFill" />
+      <view class="species-mask" wx:if="{{!item.discovered}}">
+        <text class="mask-text">待发现</text>
+      </view>
+      <view class="species-info">
+        <view class="species-name">{{item.name}}</view>
+        <view class="species-count" wx:if="{{item.discovered}}">
+          观察{{item.count}}次
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{speciesList.length === 0 && !loading}}" class="empty-box">
+    <text class="empty-text">暂无该分类物种，快去观察吧</text>
+  </view>
+</view>

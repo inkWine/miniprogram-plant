@@ -1,0 +1,109 @@
+.container {
+  min-height: 100vh;
+  background-color: #F5F9F0;
+  padding-bottom: 60rpx;
+}
+
+/* 头部 */
+.header {
+  position: relative;
+  width: 100%;
+  height: 400rpx;
+}
+.header-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.header-mask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 60rpx 30rpx 30rpx;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  color: #fff;
+}
+.species-name {
+  font-size: 40rpx;
+  font-weight: 700;
+  margin-bottom: 8rpx;
+}
+.species-category {
+  font-size: 24rpx;
+  opacity: 0.9;
+}
+
+/* 通用区块 */
+.section {
+  margin: 30rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+}
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20rpx;
+  border-left: 6rpx solid #2E7D32;
+  padding-left: 16rpx;
+}
+.desc-text {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* 记录列表 */
+.record-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+.record-item {
+  display: flex;
+  gap: 20rpx;
+  padding: 20rpx;
+  background-color: #F9FBF6;
+  border-radius: 12rpx;
+}
+.record-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 8rpx;
+  flex-shrink: 0;
+}
+.record-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6rpx;
+}
+.record-date {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #333;
+}
+.record-location {
+  font-size: 22rpx;
+  color: #888;
+}
+.record-desc {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 40rpx 0;
+  font-size: 26rpx;
+  color: #aaa;
+}

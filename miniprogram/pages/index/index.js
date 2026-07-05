@@ -1,5 +1,6 @@
 Page({
   data: {
+    searchKey: '',
     categoryList: [
       { id: 'all', name: '全部' },
       { id: 'plant', name: '植物' },
@@ -31,10 +32,22 @@ Page({
     });
   },
 
-  // 获取用户定位（核心修复）
+  // 搜索输入实时同步
+  onSearchInput(e) {
+    this.setData({
+      searchKey: e.detail.value
+    });
+  },
+
+  // 点击键盘搜索按钮触发查询
+  onSearch() {
+    this.loadObserveList();
+  },
+
+  // 获取用户定位
   getUserLocation() {
     wx.getLocation({
-      type: 'gcj02', // 国内必用这个坐标系，减少定位失败
+      type: 'gcj02',
       altitude: false,
       success: (res) => {
         console.log('定位成功', res);
@@ -47,7 +60,6 @@ Page({
       },
       fail: (err) => {
         console.error('定位失败详情：', err);
-        // 区分不同失败原因，引导用户处理
         if (err.errMsg.includes('auth deny')) {
           this.showAuthModal();
         } else if (err.errMsg.includes('system permission')) {
@@ -79,7 +91,6 @@ Page({
           wx.openSetting({
             success: (settingRes) => {
               if (settingRes.authSetting['scope.userLocation']) {
-                // 用户开启后重新获取定位
                 this.getUserLocation();
               }
             }
@@ -96,45 +107,53 @@ Page({
     this.loadObserveList();
   },
 
-  // 加载观察列表（模拟数据，后续对接云开发）
-// 加载观察列表（真实云数据库）
-loadObserveList(callback) {
-  const { currentCategory } = this.data;
-  this.setData({ loading: true });
+  // 加载观察列表（支持分类筛选 + 关键词搜索）
+  loadObserveList(callback) {
+    const { currentCategory, searchKey } = this.data;
+    this.setData({ loading: true });
 
-  const db = wx.cloud.database();
-  const _ = db.command;
-  let query = db.collection('observe');
+    const db = wx.cloud.database();
+    const _ = db.command;
+    let query = db.collection('observe');
 
-  // 分类筛选
-  if (currentCategory !== 'all') {
-    query = query.where({ category: currentCategory });
-  }
+    // 分类筛选
+    if (currentCategory !== 'all') {
+      query = query.where({ category: currentCategory });
+    }
 
-  query.orderBy('createTime', 'desc')
-    .limit(20)
-    .get()
-    .then(res => {
-      // 格式化数据，补充默认头像昵称
-      const list = res.data.map(item => ({
-        ...item,
-        nickname: item.nickname || '自然观察员',
-        avatar: item.avatar || 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132'
-      }));
-      this.setData({
-        observeList: list,
-        loading: false
+    // 关键词模糊搜索（匹配物种名称，不区分大小写）
+    if (searchKey.trim()) {
+      query = query.where({
+        speciesName: db.RegExp({
+          regexp: searchKey.trim(),
+          options: 'i'
+        })
       });
-    })
-    .catch(err => {
-      console.error('加载列表失败：', err);
-      this.setData({ loading: false });
-      wx.showToast({ title: '加载失败', icon: 'none' });
-    })
-    .finally(() => {
-      callback && callback();
-    });
-},
+    }
+
+    query.orderBy('createTime', 'desc')
+      .limit(20)
+      .get()
+      .then(res => {
+        const list = res.data.map(item => ({
+          ...item,
+          nickname: item.nickname || '自然观察员',
+          avatar: item.avatar || 'https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132'
+        }));
+        this.setData({
+          observeList: list,
+          loading: false
+        });
+      })
+      .catch(err => {
+        console.error('加载列表失败：', err);
+        this.setData({ loading: false });
+        wx.showToast({ title: '加载失败', icon: 'none' });
+      })
+      .finally(() => {
+        callback && callback();
+      });
+  },
 
   // 跳转到发布页
   goPublish() {

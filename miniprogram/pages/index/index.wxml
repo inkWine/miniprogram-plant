@@ -3,7 +3,14 @@
   <view class="search-bar">
     <view class="search-input">
       <text class="search-icon">🔍</text>
-      <input placeholder="搜索物种、地点" placeholder-class="placeholder" />
+      <input 
+        placeholder="搜索物种、地点" 
+        placeholder-class="placeholder"
+        value="{{searchKey}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearch"
+        confirm-type="search"
+      />
     </view>
   </view>
 
